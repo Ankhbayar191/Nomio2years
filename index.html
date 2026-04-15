@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Little World 🌸</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════╗
+     ║       LOGIN SCREEN           ║
+     ╚══════════════════════════════╝ -->
+<div id="loginScreen" class="login-screen">
+  <div class="petals-bg" aria-hidden="true">
+    <span class="petal p1">🌸</span><span class="petal p2">🌷</span>
+    <span class="petal p3">🌺</span><span class="petal p4">💮</span>
+    <span class="petal p5">🌸</span><span class="petal p6">🌷</span>
+    <span class="petal p7">✨</span><span class="petal p8">🌸</span>
+    <span class="petal p9">💕</span><span class="petal p10">🌷</span>
+  </div>
+  <div class="login-card">
+    <div class="login-emoji">💝</div>
+    <h1 class="login-title">Our Little World</h1>
+    <p class="login-sub">зөвхөн бидний хоёрын нууц 🔐</p>
+    <div class="login-form">
+      <div class="input-wrap">
+        <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        <input type="password" id="pwInput" placeholder="нууц үг оруулна уу..." autocomplete="current-password"/>
+      </div>
+      <button class="btn-login" id="loginBtn">
+        <span>Нэвтрэх</span>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <p class="login-error" id="loginErr" role="alert"></p>
+    </div>
+    <p class="login-hint">💌 hint: hamt duulsan anhnii duu(buh usgiig ni jijgeer bicheeree)</p>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║         MAIN APP             ║
+     ╚══════════════════════════════╝ -->
+<div id="app" class="app" style="display:none">
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">💝</span>
+      <span class="brand-name">Our World</span>
+    </div>
+
+    <ul class="nav-list" role="navigation">
+      <li><button class="nav-btn active" data-page="home">
+        <i class="fa-solid fa-house"></i><span>Нүүр</span>
+      </button></li>
+      <li><button class="nav-btn" data-page="planner">
+        <i class="fa-solid fa-calendar-days"></i><span>Хуанли</span>
+      </button></li>
+      <li><button class="nav-btn" data-page="assignments">
+        <i class="fa-solid fa-graduation-cap"></i><span>Даалгавар</span>
+      </button></li>
+      <li><button class="nav-btn" data-page="gallery">
+        <i class="fa-solid fa-images"></i><span>Дурсамж</span>
+      </button></li>
+      <li><button class="nav-btn" data-page="couple">
+        <i class="fa-solid fa-heart"></i><span>Бидний хоёр</span>
+      </button></li>
+    </ul>
+
+    <div class="sidebar-foot">
+      <button class="btn-logout" id="logoutBtn">
+        <i class="fa-solid fa-right-from-bracket"></i> Гарах
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Mobile topbar ── -->
+  <header class="topbar">
+    <button class="burger-btn" id="burgerBtn" aria-label="Цэс нээх">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <span class="topbar-title" id="topbarTitle">Нүүр</span>
+    <span aria-hidden="true">💕</span>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- ════ HOME ════ -->
+    <section class="page active" id="page-home">
+      <div class="page-head">
+        <h2 class="page-title">Сайн уу, миний хайр 🌸</h2>
+        <p class="page-sub">Өнөөдөр ч гэсэн хамтдаа...</p>
+      </div>
+
+      <div class="home-grid">
+        <div class="card love-timer-card">
+          <div class="card-emoji">💞</div>
+          <h3>Хамтдаа байсан хугацаа</h3>
+          <div class="big-days" id="homeDays">—</div>
+          <p class="days-label">өдөр хамтдаа ✨</p>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-emoji">📋</div>
+          <div class="stat-num" id="statTasks">0</div>
+          <div class="stat-lbl">Өнөөдрийн даалгавар</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-emoji">📚</div>
+          <div class="stat-num" id="statAssign">0</div>
+          <div class="stat-lbl">Дуусаагүй хичээл</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-emoji">📸</div>
+          <div class="stat-num" id="statMems">0</div>
+          <div class="stat-lbl">Дурсамж</div>
+        </div>
+
+        <div class="card home-list-card">
+          <h3>📅 Өнөөдрийн даалгавар</h3>
+          <div class="mini-list" id="homeTasks"></div>
+          <button class="card-link-btn" data-page="planner">Бүгдийг харах →</button>
+        </div>
+
+        <div class="card home-list-card">
+          <h3>⏰ Ойртож буй хичээл</h3>
+          <div class="mini-list" id="homeAssigns"></div>
+          <button class="card-link-btn" data-page="assignments">Бүгдийг харах →</button>
+        </div>
+
+        <div class="card quote-card">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="quote-text" id="quoteText"></p>
+          <button class="btn-quote" id="newQuoteBtn">Шинэ үг 💕</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ PLANNER ════ -->
+    <section class="page" id="page-planner">
+      <div class="page-head">
+        <h2 class="page-title">📅 Өдөр тутмын хуанли</h2>
+        <button class="btn-primary" id="addTaskBtn">
+          <i class="fa-solid fa-plus"></i> Даалгавар нэмэх
+        </button>
+      </div>
+
+      <div class="card calendar-card">
+        <div class="cal-nav">
+          <button class="cal-arrow" id="calPrev" aria-label="Өмнөх сар">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="cal-month-label" id="calTitle"></span>
+          <button class="cal-arrow" id="calNext" aria-label="Дараагийн сар">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="cal-weekdays" aria-hidden="true">
+          <span>Да</span><span>Мя</span><span>Лх</span><span>Пү</span><span>Ба</span><span>Бя</span><span>Ня</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <div class="card tasks-card">
+        <h3 id="tasksHeading">Даалгавар</h3>
+        <div class="tasks-list" id="tasksList"></div>
+      </div>
+    </section>
+
+    <!-- ════ ASSIGNMENTS ════ -->
+    <section class="page" id="page-assignments">
+      <div class="page-head">
+        <h2 class="page-title">📚 Их сургуулийн даалгавар</h2>
+        <button class="btn-primary" id="addAssignBtn">
+          <i class="fa-solid fa-plus"></i> Нэмэх
+        </button>
+      </div>
+
+      <div class="card filter-card">
+        <div class="filters">
+          <div class="filter-group">
+            <label for="filterSubject">Хичээл</label>
+            <select id="filterSubject">
+              <option value="">Бүгд</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterStatus">Төлөв</label>
+            <select id="filterStatus">
+              <option value="">Бүгд</option>
+              <option value="pending">Хүлээгдэж буй</option>
+              <option value="in-progress">Хийгдэж буй</option>
+              <option value="done">Дууссан</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterPriority">Чухалчлал</label>
+            <select id="filterPriority">
+              <option value="">Бүгд</option>
+              <option value="high">🔴 Яаралтай</option>
+              <option value="medium">🟡 Дунд</option>
+              <option value="low">🟢 Бага</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="assign-grid" id="assignGrid"></div>
+    </section>
+
+    <!-- ════ GALLERY ════ -->
+    <section class="page" id="page-gallery">
+      <div class="page-head">
+        <h2 class="page-title">📸 Хамтын дурсамж</h2>
+        <button class="btn-primary" id="addMemBtn">
+          <i class="fa-solid fa-plus"></i> Дурсамж нэмэх
+        </button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <!-- ════ COUPLE ════ -->
+    <section class="page" id="page-couple">
+      <div class="page-head">
+        <h2 class="page-title">💑 Бидний хоёр</h2>
+      </div>
+
+      <div class="couple-grid">
+
+        <!-- Big timer -->
+        <div class="card couple-timer-card">
+          <div class="timer-heart">💝</div>
+          <h3>Хамтдаа байсан хугацаа</h3>
+          <div class="timer-units">
+            <div class="timer-unit"><span id="tDays">—</span><small>өдөр</small></div>
+            <div class="timer-sep">:</div>
+            <div class="timer-unit"><span id="tHours">—</span><small>цаг</small></div>
+            <div class="timer-sep">:</div>
+            <div class="timer-unit"><span id="tMins">—</span><small>мин</small></div>
+            <div class="timer-sep">:</div>
+            <div class="timer-unit"><span id="tSecs">—</span><small>сек</small></div>
+          </div>
+          <div class="timer-date-row">
+            <label for="startDateInput">Эхэлсэн огноо:</label>
+            <input type="date" id="startDateInput"/>
+            <button class="btn-save-date" id="saveDateBtn">Хадгалах</button>
+          </div>
+        </div>
+
+        <!-- Anniversary -->
+        <div class="card anniv-card">
+          <div class="anniv-emoji">🎉</div>
+          <h3>Ойн баяр хүртэл</h3>
+          <div class="anniv-days" id="annivDays">—</div>
+          <p class="anniv-sub" id="annivSub">Эхэлсэн огноог тохируулна уу</p>
+        </div>
+
+        <!-- Messages -->
+        <div class="card messages-card">
+          <h3>💌 Романтик захиалга</h3>
+          <div class="msg-list" id="msgList"></div>
+          <div class="msg-compose">
+            <input type="text" id="msgFrom" placeholder="Хэнээс..." class="input-sm" maxlength="30"/>
+            <textarea id="msgText" placeholder="Захиалгаа энд бич... 💕" rows="3" maxlength="500"></textarea>
+            <button class="btn-primary full" id="sendMsgBtn">Илгээх 💌</button>
+          </div>
+        </div>
+
+        <!-- Love notes -->
+        <div class="card notes-card">
+          <h3>❤️ Хайрын дэвтэр</h3>
+          <div class="notes-list" id="notesList"></div>
+          <div class="note-compose">
+            <input type="text" id="noteInput" placeholder="Хайр дурлалын тэмдэглэл..." maxlength="200"/>
+            <button class="btn-icon-round" id="addNoteBtn" aria-label="Нэмэх">
+              <i class="fa-solid fa-heart"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ╔══════════════════════════════╗
+     ║          MODALS              ║
+     ╚══════════════════════════════╝ -->
+
+<!-- Task Modal -->
+<div class="modal-wrap" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="taskModalTitle">Даалгавар нэмэх</h3>
+      <button class="modal-close" data-close="taskModal" aria-label="Хаах"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="taskEditId"/>
+      <div class="form-group">
+        <label for="taskTitle">Гарчиг *</label>
+        <input type="text" id="taskTitle" placeholder="Даалгаврын нэр..." maxlength="100"/>
+      </div>
+      <div class="form-group">
+        <label for="taskDesc">Тайлбар</label>
+        <textarea id="taskDesc" placeholder="Дэлгэрэнгүй тайлбар..." rows="3" maxlength="500"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="taskDate">Огноо *</label>
+          <input type="date" id="taskDate"/>
+        </div>
+        <div class="form-group">
+          <label for="taskStatus">Төлөв</label>
+          <select id="taskStatus">
+            <option value="pending">Хүлээгдэж буй</option>
+            <option value="done">Дууссан</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="taskWho">Хэний</label>
+        <select id="taskWho">
+          <option value="both">Хоёулаа</option>
+          <option value="me">Би</option>
+          <option value="partner">Хань</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-secondary" data-close="taskModal">Болих</button>
+      <button class="btn-primary" id="saveTaskBtn">Хадгалах 💾</button>
+    </div>
+  </div>
+</div>
+
+<!-- Assignment Modal -->
+<div class="modal-wrap" id="assignModal" role="dialog" aria-modal="true" aria-labelledby="assignModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="assignModalTitle">Даалгавар нэмэх</h3>
+      <button class="modal-close" data-close="assignModal" aria-label="Хаах"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="assignEditId"/>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="assignSubject">Хичээл *</label>
+          <input type="text" id="assignSubject" placeholder="Жишээ: Математик" list="subjectList" maxlength="50"/>
+          <datalist id="subjectList"></datalist>
+        </div>
+        <div class="form-group">
+          <label for="assignTitle">Гарчиг *</label>
+          <input type="text" id="assignTitle" placeholder="Даалгаврын нэр..." maxlength="100"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="assignDesc">Тайлбар</label>
+        <textarea id="assignDesc" placeholder="Дэлгэрэнгүй..." rows="3" maxlength="500"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="assignDeadline">Дуусах огноо *</label>
+          <input type="date" id="assignDeadline"/>
+        </div>
+        <div class="form-group">
+          <label for="assignPriority">Чухалчлал</label>
+          <select id="assignPriority">
+            <option value="high">🔴 Яаралтай</option>
+            <option value="medium" selected>🟡 Дунд</option>
+            <option value="low">🟢 Бага</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="assignStatus">Төлөв</label>
+          <select id="assignStatus">
+            <option value="pending">Хүлээгдэж буй</option>
+            <option value="in-progress">Хийгдэж буй</option>
+            <option value="done">Дууссан</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="assignWho">Хэний</label>
+          <select id="assignWho">
+            <option value="both">Хоёулаа</option>
+            <option value="me">Би</option>
+            <option value="partner">Хань</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-secondary" data-close="assignModal">Болих</button>
+      <button class="btn-primary" id="saveAssignBtn">Хадгалах 💾</button>
+    </div>
+  </div>
+</div>
+
+<!-- Memory Upload Modal -->
+<div class="modal-wrap" id="memModal" role="dialog" aria-modal="true" aria-labelledby="memModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="memModalTitle">Дурсамж нэмэх</h3>
+      <button class="modal-close" data-close="memModal" aria-label="Хаах"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <!-- Upload zone -->
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="memFileInput" accept="image/*" aria-label="Зураг сонгох"/>
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <p>Зураг сонгох эсвэл чирж оруулах</p>
+          <span>JPG, PNG, WEBP дэмжинэ</span>
+        </div>
+        <img id="memPreviewImg" class="upload-preview" alt="Урьдчилж харах" style="display:none"/>
+      </div>
+      <div class="form-group">
+        <label for="memCaption">Тайлбар *</label>
+        <input type="text" id="memCaption" placeholder="Энэ дурсамжны тухай..." maxlength="150"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="memDate">Огноо</label>
+          <input type="date" id="memDate"/>
+        </div>
+        <div class="form-group">
+          <label for="memWho">Хэнийх</label>
+          <select id="memWho">
+            <option value="both">Хоёулаа</option>
+            <option value="me">Миний</option>
+            <option value="partner">Хань</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-secondary" data-close="memModal">Болих</button>
+      <button class="btn-primary" id="saveMemBtn">Хадгалах 💾</button>
+    </div>
+  </div>
+</div>
+
+<!-- Memory Preview Modal -->
+<div class="modal-wrap modal-wrap-large" id="previewModal" role="dialog" aria-modal="true">
+  <div class="modal modal-lg">
+    <div class="modal-head">
+      <h3 id="previewCaption"></h3>
+      <div class="preview-head-actions">
+        <button class="btn-danger-sm" id="deleteMemBtn" title="Дурсамж устгах">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button class="modal-close" data-close="previewModal" aria-label="Хаах"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <img id="previewFullImg" class="preview-full-img" alt="Дурсамжийн зураг"/>
+      <p class="preview-meta" id="previewMeta"></p>
+      <div class="comments-section">
+        <h4>💬 Сэтгэгдэл</h4>
+        <div class="comments-list" id="commentsList"></div>
+        <div class="comment-compose">
+          <input type="text" id="commentFrom" placeholder="Нэр..." class="input-sm" maxlength="30"/>
+          <input type="text" id="commentText" placeholder="Сэтгэгдэл бичих..." maxlength="300"/>
+          <button class="btn-icon-round" id="addCommentBtn" aria-label="Илгээх">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
